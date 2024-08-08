@@ -9,19 +9,18 @@ const menu = document.getElementById("menu");
 const cells = document.querySelectorAll(".cell");
 const player = document.getElementById("current-player");
 
-startBtn.addEventListener("click", () => {
-    menu.setAttribute("visible", "false"); 
+function transition(button, outElement, inElement) {
+    button.addEventListener("click", () => {
+        outElement.setAttribute("visible", "false");
 
-    // When the popout animation ends the board appears
-    menu.addEventListener("animationend", () => {
-        board.setAttribute("visible", "true");
-        board.style.display = "flex ";
-
-        menu.style.display = "none";
+        outElement.addEventListener("animationend", () => {
+            inElement.setAttribute("visible", "true");
+            inElement.style.display = "flex ";
+    
+            outElement.style.display = "none";
+        });
     });
-
-    startGame();
-});
+}
 
 function startGame() {
     cells.forEach(cell => cell.addEventListener("click", fillCell)); // fillCell callback
@@ -47,4 +46,8 @@ function fillCell() {
 function updateCell(cell, cellIndex) {
     grid[cellIndex] = currentPlayer;
     cell.textContent = currentPlayer;
-}   
+}  
+
+startGame();
+
+transition(startBtn, menu, board);
