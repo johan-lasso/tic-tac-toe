@@ -4,8 +4,13 @@ const grid = ["","","","","","","","",""];
 
 const startBtn = document.getElementById("start-btn");
 const themeBtn = document.getElementById("theme-btn");
+const darkBtn = document.getElementById("dark-btn");
+const lightBtn = document.getElementById("light-btn");
+
 const board = document.getElementById("board");
 const menu = document.getElementById("menu");
+const theme = document.getElementById("theme");
+
 const cells = document.querySelectorAll(".cell");
 const player = document.getElementById("current-player");
 
@@ -21,6 +26,14 @@ function transition(button, outElement, inElement) {
         });
     });
 }
+
+darkBtn.addEventListener("click", () => {
+    document.documentElement.setAttribute("data-theme", "dark");
+});
+
+lightBtn.addEventListener("click", () => {
+    document.documentElement.setAttribute("data-theme", "light");
+});
 
 function startGame() {
     cells.forEach(cell => cell.addEventListener("click", fillCell)); // fillCell callback
@@ -51,3 +64,4 @@ function updateCell(cell, cellIndex) {
 startGame();
 
 transition(startBtn, menu, board);
+transition(themeBtn, menu, theme)
